@@ -31,6 +31,7 @@ class EmployeeResource extends Resource
                     ->relationship(name: 'Country' ,titleAttribute: 'name')
                     ->searchable()
                     ->preload()
+                    ->live()
                     ->required(),
                     Forms\Components\Select::make('state_id')
                     ->relationship(name: 'State' ,titleAttribute: 'name')
