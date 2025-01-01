@@ -17,13 +17,18 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user';
+    protected static ?string $navigationGroup = 'User Management';
+
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 //
+                Forms\Components\TextInput::make('name')->required(),
+            Forms\Components\TextInput::make('email')->email()->required(),
+            // ...
             ]);
     }
 
@@ -32,6 +37,8 @@ class UserResource extends Resource
         return $table
             ->columns([
                 //
+                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('email'),
             ])
             ->filters([
                 //
@@ -45,6 +52,8 @@ class UserResource extends Resource
                 ]),
             ]);
     }
+
+ 
 
     public static function getRelations(): array
     {

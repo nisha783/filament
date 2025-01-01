@@ -7,10 +7,14 @@ use App\Filament\Resources\DepartmentResource\RelationManagers;
 use App\Models\Department;
 use Filament\Forms;
 use Filament\Forms\Form;
+use Filament\Infolists\Components\Section;
+use Filament\Infolists\Components\TextEntry;
+use Filament\Infolists\Infolist;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class DepartmentResource extends Resource
@@ -25,7 +29,7 @@ class DepartmentResource extends Resource
 
     protected static ?string $navigationGroup = 'System Management';
 
-    protected static ?int $navigationSort= 4;
+    protected static ?int $navigationSort = 4;
 
 
     public static function form(Form $form): Form
@@ -68,6 +72,21 @@ class DepartmentResource extends Resource
             ]);
     }
 
+    public static function infolist(Infolist $infolist): Infolist
+    {
+        return $infolist
+            ->schema([
+                // ...
+                Section::make('Department Info')
+                    ->schema([
+                        TextEntry::make('name'),
+                        TextEntry::make('employees_count')->label('Phone Code')
+                            ->state(function (Model $record): int {
+                                return $record->employees()->count();
+                            })
+                    ])->columns(3)
+            ]);
+    }
     public static function getRelations(): array
     {
         return [
