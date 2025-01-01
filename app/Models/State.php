@@ -15,4 +15,13 @@ class State extends Model
     {
         return $this->belongsTo(country::class);
     }
+    public function employees()
+    {
+        return $this->hasMany(employee::class);
+    }
+
+    public function cities()
+    {
+        return $this->hasMany(City::class);
+    }
 }
