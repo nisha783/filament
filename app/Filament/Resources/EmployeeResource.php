@@ -18,6 +18,7 @@ use Filament\Tables\Filters\Indicator;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Carbon;
 
@@ -27,6 +28,16 @@ class EmployeeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
     protected static ?string $navigationGroup = 'Employee Management';
+    protected static ?string $recordTitleAttribute = 'first_name';
+
+    public static function getGlobelSearchResultTitle(Model $record):string
+    {
+  return $record->last_name;
+    }
+public static function getGlobelSearchableAttributes():array
+{
+    return [ 'first_name', 'last_name' ,'middle_name'];
+}
 
     public static function form(Form $form): Form
     {
